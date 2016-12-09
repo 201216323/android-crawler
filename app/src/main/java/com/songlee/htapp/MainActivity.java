@@ -8,31 +8,29 @@ import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.util.ArrayMap;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.jsoup.Jsoup;
 import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -43,7 +41,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 原文链接：http://songlee24.github.io/2015/01/11/android-crawler/
+ */
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -118,9 +118,11 @@ public class MainActivity extends ActionBarActivity
             // 获取tbody元素下的所有tr元素
             Elements elements = doc.select("tbody tr");
             for(Element element : elements) {
-                String companyName = element.getElementsByTag("company").text();
-                String time = element.select("td.text-center").first().text();
-                String address = element.getElementsByClass("preach-tbody-addre").text();
+//                String companyName = element.getElementsByTag("company").text();
+                String companyName= element.getElementsByClass("company").text();
+//                String time = element.select("td.text-center").first().text();
+                String time = element.select("td.text-left").first().text();
+                String address = element.getElementsByClass("text-ellipsis").first().text();
 
                 Map<String, Object> map = new HashMap<>();
                 map.put("company", companyName);
